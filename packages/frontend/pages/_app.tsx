@@ -16,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       disableTransitionOnChange
     >
       <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+        <Web3Provider>
+          <Component {...pageProps} />
+        </Web3Provider>
       </QueryClientProvider>
     </ThemeProvider>
   );

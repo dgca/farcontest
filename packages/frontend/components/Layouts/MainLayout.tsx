@@ -1,3 +1,4 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ReactNode } from "react";
 
 import { Text } from "ui-kit";
@@ -17,6 +18,7 @@ export function MainLayout({ children }: Props) {
         </Text.H3>
         <div className="flex items-center gap-3">
           <ThemeToggle />
+          <ConnectButton />
         </div>
       </nav>
 
