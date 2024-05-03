@@ -1,0 +1,13 @@
+{
+  "name": "ui-utils",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "files": [
+    "./styles/global.css",
+    "./tailwind/tailwind.config.js"
+  ],
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc index.ts --outDir dist"
+  }
+}
