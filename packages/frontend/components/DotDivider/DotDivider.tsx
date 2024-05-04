@@ -1,3 +1,4 @@
+"use client";
 import { Box, HStack, StackProps } from "@chakra-ui/react";
 
 export function DotDivider(props: StackProps) {

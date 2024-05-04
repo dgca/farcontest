@@ -1,9 +1,10 @@
+"use client";
 import "@rainbow-me/rainbowkit/styles.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { AppProps } from "next/app";
 import { Rubik } from "next/font/google";
+import { ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 import { hardhat, baseSepolia } from "wagmi/chains";
 
@@ -23,20 +24,16 @@ const config = getDefaultConfig({
 
 const client = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
+export function RootProvider({ children }: { children: ReactNode }) {
   return (
     <div className={rubik.className}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={client}>
           <RainbowKitProvider>
-            <ChakraProvider theme={theme}>
-              <Component {...pageProps} />
-            </ChakraProvider>
+            <ChakraProvider theme={theme}>{children}</ChakraProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </div>
   );
 }
-
-export default MyApp;
