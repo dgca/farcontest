@@ -2,38 +2,21 @@ import hre from "hardhat";
 
 import { updateContractAddresses } from "../lib/update-contract-addresses";
 
-async function deployTodoList() {
+async function deployFarContest() {
   const [deployerClient] = await hre.viem.getWalletClients();
-  const todoList = await hre.viem.deployContract("TodoList", [
+  const farContest = await hre.viem.deployContract("FarContest", [
     deployerClient.account.address,
   ]);
-  console.log(`TodoList deployed to ${todoList.address}`);
-  return todoList;
-}
-
-async function deployTestSolidityTypes() {
-  const testSolidityTypes = await hre.viem.deployContract("TestSolidityTypes");
-  console.log(`TestSolidityTypes deployed to ${testSolidityTypes.address}`);
-  return testSolidityTypes;
+  console.log(`FarContest deployed to ${farContest.address}`);
+  return farContest;
 }
 
 async function main() {
-  const [deployerClient] = await hre.viem.getWalletClients();
-
-  const todoList = await deployTodoList();
-  const testSolidityTypes = await deployTestSolidityTypes();
-
-  await deployerClient.writeContract({
-    abi: todoList.abi,
-    address: todoList.address,
-    functionName: "add",
-    args: ["Build the next big thing"],
-  });
+  const farContest = await deployFarContest();
 
   if (hre.network.name === "localhost") {
     updateContractAddresses("localhost", {
-      TodoList: todoList.address,
-      TestSolidityTypes: testSolidityTypes.address,
+      FarContest: farContest.address,
     });
   }
 }
