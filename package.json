@@ -6,8 +6,8 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "@nx/js": "18.1.2",
-    "nx": "18.1.2",
+    "@nx/js": "17.2.8",
+    "nx": "17.2.8",
     "@typescript-eslint/eslint-plugin": "^6.18.0",
     "@typescript-eslint/parser": "^6.18.0",
     "autoprefixer": "^10.4.16",
