@@ -1,24 +1,13 @@
 import { NextRequest } from "next/server";
 
+import { getEntryById } from "@/supabase/getEntryById";
 import { createClient } from "@/supabase/supabaseClient";
 
 export async function GET(
   _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const supabase = createClient();
-
-  const { data, error } = await supabase
-    .from("entries")
-    .select(
-      `id, 
-       creator_fid, 
-       content, 
-       contest_id, 
-       votes(count)
-       `
-    )
-    .eq("id", params.id);
+  const { data, error } = await getEntryById(params.id);
 
   return Response.json({
     data,

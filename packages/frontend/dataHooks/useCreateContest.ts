@@ -21,7 +21,8 @@ export function useCreateContest() {
         method: "POST",
         body: JSON.stringify(formData),
       });
-      return response;
+      const json = await response.json();
+      return json;
     },
   });
 }

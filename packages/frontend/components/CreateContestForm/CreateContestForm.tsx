@@ -13,6 +13,7 @@ import {
   FormHelperText,
   useToast,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { DotDivider } from "../DotDivider/DotDivider";
@@ -28,7 +29,8 @@ export function CreateContestForm() {
   const { mutate: createContest } = useCreateContest();
   const toast = useToast();
   const siwnContext = useSIWNContext();
-  console.log(siwnContext);
+  const router = useRouter();
+
   return (
     <VStack alignItems="stretch">
       <Box
@@ -55,14 +57,16 @@ export function CreateContestForm() {
             const parsed = parseFormData(formData);
 
             await createContest(parsed, {
-              onSuccess: () => {
+              onSuccess: (data) => {
                 toast({
                   title: "Success",
                   description: "Your contest has been created",
                   status: "success",
                   duration: 3000,
                 });
-                // (e.target as HTMLFormElement).reset();
+                (e.target as HTMLFormElement).reset();
+                const contestId = data.id;
+                router.push(`/contest/${contestId}`);
               },
               onError: () => {
                 toast({

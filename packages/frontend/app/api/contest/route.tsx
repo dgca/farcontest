@@ -18,16 +18,15 @@ export async function POST(request: NextRequest) {
   const supabase = createClient();
   const { signer_uuid, ...rest } = await request.json();
 
-  const { data, error } = await supabase
+  const { data, error } = (await supabase
     .from("contests")
     .insert(rest)
-    .select("id");
+    .select("id")
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .maybeSingle()) as any;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const anyData = data as any;
-
-  if (anyData?.[0].id) {
-    const contestId = anyData?.[0].id as string;
+  if (data?.id) {
+    const contestId = data.id as string;
 
     await createCast(
       signer_uuid,
