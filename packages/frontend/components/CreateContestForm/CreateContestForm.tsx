@@ -166,7 +166,7 @@ export function CreateContestForm() {
               setPrizeCount(prizeCount + 1);
             }}
           >
-            Add Prize!
+            Add Prize
           </Button>
         </VStack>
 
