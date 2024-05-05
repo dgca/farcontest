@@ -1,7 +1,9 @@
 "use client";
-import { chakra, Flex, HStack, Text, Stack } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
+import { chakra, Flex, HStack, Text, Stack, Container } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
+import Script from "next/script";
 import { ReactNode } from "react";
 
 import { RootProvider } from "./RootProvider";
@@ -11,6 +13,7 @@ import { Logo } from "@/components/Logo/Logo";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <Script src="https://neynarxyz.github.io/siwn/raw/1.2.0/index.js" async />
       <body>
         <RootProvider>
           <Flex
@@ -45,12 +48,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   md: 0,
                 }}
               >
-                <Logo />
+                <Link href="/">
+                  <Logo />
+                </Link>
                 <ConnectButton />
               </Stack>
             </div>
             <chakra.main mt={16} flexGrow={1}>
-              {children}
+              <Container maxW="container.lg">{children}</Container>
             </chakra.main>
             <HStack
               as="footer"

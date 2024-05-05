@@ -5,6 +5,8 @@ type ParsedFormData = {
   description: string;
   deadline: string;
   prize_token: string;
+  creator_fid: string;
+  signer_uuid: string;
   prizes: {
     name: string;
     amount: number;

@@ -47,7 +47,7 @@ export function SIWNProvider({ children }: { children: ReactNode }) {
 
   const [storedFarcasterUser, setStoredFarcasterUser] = useLocalStorage(
     "storedFarcasterUser",
-    "{}"
+    ""
   );
 
   const farcasterUser = useMemo(() => {
@@ -114,7 +114,6 @@ export function SIWNProvider({ children }: { children: ReactNode }) {
         farcasterUser,
       }}
     >
-      <Script src="https://neynarxyz.github.io/siwn/raw/1.2.0/index.js" async />
       {children}
     </SIWNContext.Provider>
   );

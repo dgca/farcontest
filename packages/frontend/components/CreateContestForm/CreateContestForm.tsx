@@ -28,7 +28,7 @@ export function CreateContestForm() {
   const { mutate: createContest } = useCreateContest();
   const toast = useToast();
   const siwnContext = useSIWNContext();
-
+  console.log(siwnContext);
   return (
     <VStack alignItems="stretch">
       <Box
@@ -53,6 +53,7 @@ export function CreateContestForm() {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
             const parsed = parseFormData(formData);
+
             await createContest(parsed, {
               onSuccess: () => {
                 toast({
@@ -61,7 +62,7 @@ export function CreateContestForm() {
                   status: "success",
                   duration: 3000,
                 });
-                (e.target as HTMLFormElement).reset();
+                // (e.target as HTMLFormElement).reset();
               },
               onError: () => {
                 toast({
@@ -74,7 +75,20 @@ export function CreateContestForm() {
             });
           }}
         >
-          <input type="hidden" name="creator_fid" value="6969" />
+          {siwnContext.farcasterUser?.signer_uuid && (
+            <>
+              <input
+                type="hidden"
+                name="signer_uuid"
+                value={siwnContext.farcasterUser.signer_uuid}
+              />
+              <input
+                type="hidden"
+                name="creator_fid"
+                value={siwnContext.farcasterUser.fid}
+              />
+            </>
+          )}
 
           <FormControl>
             <FormLabel>Contest Name</FormLabel>
