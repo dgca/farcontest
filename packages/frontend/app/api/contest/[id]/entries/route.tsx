@@ -9,7 +9,7 @@ export async function GET(
   const supabase = createClient();
 
   const { data, error } = await supabase
-    .from("entries")
+    .from("entries_vote_count")
     .select(
       `id, 
        creator_fid, 
@@ -17,7 +17,8 @@ export async function GET(
        votes(count)
        `
     )
-    .eq("contest_id", params.id);
+    .eq("contest_id", params.id)
+    .order("vote_count", { ascending: false });
 
   return Response.json({
     data,

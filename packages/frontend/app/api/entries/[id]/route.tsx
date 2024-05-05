@@ -14,6 +14,7 @@ export async function GET(
       `id, 
        creator_fid, 
        content, 
+       contest_id, 
        votes(count)
        `
     )
