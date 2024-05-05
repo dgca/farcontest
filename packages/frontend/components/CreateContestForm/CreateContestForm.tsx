@@ -14,10 +14,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useToggle } from "usehooks-ts";
 
 import { DotDivider } from "../DotDivider/DotDivider";
+import { QRCodeModal } from "../QRCodeModal/QRCodeModal";
 
 import { parseFormData, useCreateContest } from "@/dataHooks/useCreateContest";
+import { usePinataAuth } from "@/dataHooks/usePinataAuth";
 import { toOrdinal } from "@/utils/toOrdinal";
 
 const FORM_NAME = "create-contest-form";
@@ -26,6 +29,10 @@ export function CreateContestForm() {
   const [prizeCount, setPrizeCount] = useState(1);
   const { mutate: createContest } = useCreateContest();
   const toast = useToast();
+
+  const pinataAuth = usePinataAuth();
+  const [isLoginModalOpen, toggleIsLoginModalOpen] = useToggle(false);
+  console.log({ pinataAuth });
 
   return (
     <VStack alignItems="stretch">
@@ -169,9 +176,40 @@ export function CreateContestForm() {
 
           <Divider />
 
-          <Button colorScheme="purple" type="submit" form={FORM_NAME}>
-            Create Contest
-          </Button>
+          <VStack alignItems="stretch">
+            {pinataAuth.userAuthStatus !== "logged-in" && (
+              <>
+                <Button
+                  colorScheme="purple"
+                  type="button"
+                  onClick={() => {
+                    pinataAuth.handleLogin();
+                    toggleIsLoginModalOpen();
+                  }}
+                >
+                  Login w/ Farcaster
+                </Button>
+                {isLoginModalOpen && pinataAuth.deepLinkUrl && (
+                  <QRCodeModal
+                    onClose={() => {
+                      toggleIsLoginModalOpen();
+                      pinataAuth.handleCancel();
+                    }}
+                    deepLinkUrl={pinataAuth.deepLinkUrl}
+                  />
+                )}
+              </>
+            )}
+
+            <Button
+              colorScheme="blue"
+              type="submit"
+              form={FORM_NAME}
+              isDisabled={pinataAuth.userAuthStatus !== "logged-in"}
+            >
+              Create Contest
+            </Button>
+          </VStack>
         </VStack>
       </Box>
     </VStack>
