@@ -22,7 +22,6 @@
     "pinata-fdk": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-qr-code": "^2.0.12",
     "usehooks-ts": "^3.1.0",
     "viem": "^2.8.12",
     "wagmi": "^2.5.11"
