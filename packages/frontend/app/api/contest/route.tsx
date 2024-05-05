@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     const castResponse = await createCast(
       signer_uuid,
-      `I just created a FarContest! Learn more 👇\n\nhttp://localhost:3000/contest/${contestId}`
+      `I just created a FarContest! Learn more 👇\n\n${process.env.NEXT_PUBLIC_VERCEL_URL}/contest/${contestId}`
     );
 
     const hash = castResponse?.cast?.hash ?? "";
