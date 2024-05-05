@@ -4,8 +4,6 @@ import { getFdk } from "@/pinata/getFdk";
 
 export async function GET() {
   const fdk = getFdk();
-  console.log(fdk.config);
-
   const signerData = await fdk.createSigner();
 
   return NextResponse.json({

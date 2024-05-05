@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useState, useEffect } from "react";
+import { useInterval, useLocalStorage } from "usehooks-ts";
 
 type UserAuthStatus = "initializing" | "logged-out" | "polling" | "logged-in";
 
@@ -8,11 +8,9 @@ export function usePinataAuth() {
   const [userAuthStatus, setUserAuthStatus] =
     useState<UserAuthStatus>("initializing");
   const [storedSignerToken, setStoredSignerToken] = useLocalStorage(
-    "authToken",
+    "farcontestAuthToken",
     ""
   );
-  const statusRef = useRef(userAuthStatus);
-  statusRef.current = userAuthStatus;
 
   useEffect(() => {
     async function setInitialAuthStatus() {
@@ -36,11 +34,9 @@ export function usePinataAuth() {
     setInitialAuthStatus();
   }, [storedSignerToken, userAuthStatus]);
 
-  useEffect(() => {
-    if (userAuthStatus !== "polling") return;
-
-    async function handleLogin() {
-      if (statusRef.current !== "polling") return;
+  useInterval(
+    async function handleCheck() {
+      if (userAuthStatus !== "polling") return;
 
       let signerToken = storedSignerToken;
 
@@ -57,7 +53,7 @@ export function usePinataAuth() {
       );
       const pollSignerData = await pollSignerResponse.json();
 
-      if (pollSignerData.deeplinkUrl) {
+      if (!deepLinkUrl && pollSignerData.deeplinkUrl) {
         setDeepLinkUrl(pollSignerData.deeplinkUrl);
       }
 
@@ -65,21 +61,20 @@ export function usePinataAuth() {
         setUserAuthStatus("logged-in");
         return;
       }
-
-      setTimeout(handleLogin, 3000);
-    }
-
-    handleLogin();
-  }, [setStoredSignerToken, storedSignerToken, userAuthStatus]);
+    },
+    userAuthStatus === "polling" ? 2500 : null
+  );
 
   return {
     userAuthStatus,
     deepLinkUrl,
     handleLogin: () => {
+      if (userAuthStatus !== "logged-out") return;
       setUserAuthStatus("polling");
     },
     handleCancel: () => {
       setUserAuthStatus("logged-out");
+      setDeepLinkUrl(null);
     },
   };
 }
