@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import { getUserDataForFid } from "frames.js";
 import { Button, createFrames } from "frames.js/next";
 
 import { getContestById } from "@/supabase/getContestById";
@@ -13,6 +14,7 @@ export const GET = frames(async (ctx) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data } = (await getContestById(contestId!)) as any;
+  const creatorData = await getUserDataForFid({ fid: data.creator_fid });
 
   return {
     image: (
@@ -22,6 +24,7 @@ export const GET = frames(async (ctx) => {
         </span>
         <span tw="w-full flex flex-col items-center justify-center grow-1">
           <span>{data.name}</span>
+          <span>By {creatorData?.displayName}</span>
           <span>~~~</span>
           <span>{data.description}</span>
         </span>
