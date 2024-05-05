@@ -195,7 +195,12 @@ export function CreateContestForm() {
         <VStack alignItems="stretch">
           {siwnContext.signInButton}
 
-          <Button colorScheme="blue" type="submit" form={FORM_NAME}>
+          <Button
+            colorScheme="blue"
+            type="submit"
+            form={FORM_NAME}
+            isDisabled={siwnContext.farcasterUser === null}
+          >
             Create Contest
           </Button>
         </VStack>
