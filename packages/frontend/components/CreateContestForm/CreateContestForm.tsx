@@ -18,6 +18,7 @@ import { useState } from "react";
 import { DotDivider } from "../DotDivider/DotDivider";
 
 import { parseFormData, useCreateContest } from "@/dataHooks/useCreateContest";
+import { useSIWNContext } from "@/neynar/SIWNProvider";
 import { toOrdinal } from "@/utils/toOrdinal";
 
 const FORM_NAME = "create-contest-form";
@@ -26,6 +27,7 @@ export function CreateContestForm() {
   const [prizeCount, setPrizeCount] = useState(1);
   const { mutate: createContest } = useCreateContest();
   const toast = useToast();
+  const siwnContext = useSIWNContext();
 
   return (
     <VStack alignItems="stretch">
@@ -166,10 +168,16 @@ export function CreateContestForm() {
           >
             Add Prize
           </Button>
+        </VStack>
 
-          <Divider />
+        <HStack justifyContent="center" my={4}>
+          <DotDivider />
+        </HStack>
 
-          <Button colorScheme="purple" type="submit" form={FORM_NAME}>
+        <VStack alignItems="stretch">
+          {siwnContext.signInButton}
+
+          <Button colorScheme="blue" type="submit" form={FORM_NAME}>
             Create Contest
           </Button>
         </VStack>

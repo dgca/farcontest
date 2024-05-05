@@ -1,3 +1,3 @@
 export default function Contest() {
-  return null;
+  return <h1>Contest page</h1>;
 }
