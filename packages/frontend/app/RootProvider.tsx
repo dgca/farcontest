@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 import { hardhat, baseSepolia } from "wagmi/chains";
 
+import { SIWNProvider } from "@/neynar/SIWNProvider";
 import { theme } from "@/theme/theme";
 
 const rubik = Rubik({
@@ -30,7 +31,9 @@ export function RootProvider({ children }: { children: ReactNode }) {
       <WagmiProvider config={config}>
         <QueryClientProvider client={client}>
           <RainbowKitProvider>
-            <ChakraProvider theme={theme}>{children}</ChakraProvider>
+            <SIWNProvider>
+              <ChakraProvider theme={theme}>{children}</ChakraProvider>
+            </SIWNProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

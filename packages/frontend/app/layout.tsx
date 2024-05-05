@@ -6,7 +6,6 @@ import { ReactNode } from "react";
 
 import { RootProvider } from "./RootProvider";
 
-import { DotDivider } from "@/components/DotDivider/DotDivider";
 import { Logo } from "@/components/Logo/Logo";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -61,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               alignItems="center"
             >
               <Text>© {new Date().getFullYear()} FarContest</Text>
-              <DotDivider mx={2} />
+              <Text>🪿</Text>
               <Text>By typeof.eth and loocy.eth</Text>
             </HStack>
           </Flex>
