@@ -65,7 +65,7 @@ export function CreateContestForm() {
                   duration: 3000,
                 });
                 (e.target as HTMLFormElement).reset();
-                const contestId = data.id;
+                const contestId = data.data.id;
                 router.push(`/contest/${contestId}`);
               },
               onError: () => {
