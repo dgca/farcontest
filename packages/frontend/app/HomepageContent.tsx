@@ -1,6 +1,6 @@
 "use client";
-import { CreateContestForm } from "@/components/CreateContestForm/CreateContestForm";
+// import { CreateContestForm } from "@/components/CreateContestForm/CreateContestForm";
 
 export function HomepageContent() {
-  return <CreateContestForm />;
+  return <h1>Coming soon...</h1>;
 }
